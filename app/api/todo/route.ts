@@ -129,7 +129,7 @@ export async function DELETE(req: Request) {
     }
 
     // validate the data
-    const { taskId } = await req.json();
+    const taskId = await req.json();
 
     // get todo
     const todo = await prisma.todo.findUnique({

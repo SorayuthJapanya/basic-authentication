@@ -20,6 +20,10 @@ export interface Todo {
   updatedAt: Date;
 }
 
+export interface TodoForm {
+  title: string;
+}
+
 export interface TodoFormUpdate {
   taskId: string
   title?: string;

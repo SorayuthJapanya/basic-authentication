@@ -1,11 +1,11 @@
-import { TodoFormUpdate } from "@/app/types";
+import { TodoForm, TodoFormUpdate } from "@/app/types";
 import { axiosInstance } from "@/lib/axios";
 import { AxiosError } from "axios";
 
 // Get todos
 export async function getTodosService() {
   try {
-    const response = await axiosInstance.get("api/todo");
+    const response = await axiosInstance.get("/api/todo");
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -18,7 +18,7 @@ export async function getTodosService() {
 // Get todo
 export async function getTodoService(taskId: string) {
   try {
-    const response = await axiosInstance.get(`api/todo/${taskId}`);
+    const response = await axiosInstance.get(`/api/todo/${taskId}`);
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -29,9 +29,9 @@ export async function getTodoService(taskId: string) {
 }
 
 // Create todo
-export async function createTodoService(title: string) {
+export async function createTodoService(data: TodoForm) {
   try {
-    const response = await axiosInstance.post("api/todo", title);
+    const response = await axiosInstance.post("/api/todo", data);
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -44,7 +44,7 @@ export async function createTodoService(title: string) {
 // Update todp
 export async function updateTodoService(data: TodoFormUpdate) {
   try {
-    const response = await axiosInstance.put("api/todo", data);
+    const response = await axiosInstance.put("/api/todo", data);
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -56,7 +56,7 @@ export async function updateTodoService(data: TodoFormUpdate) {
 
 export async function deleteTodoService(taskId: string) {
   try {
-    const response = await axiosInstance.delete("api/todo", {
+    const response = await axiosInstance.delete("/api/todo", {
       data: taskId,
     });
     return response.data;

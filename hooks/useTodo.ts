@@ -7,11 +7,7 @@ import {
   getTodosService,
   updateTodoService,
 } from "@/services/todo.service";
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 // Get Todos
@@ -36,7 +32,7 @@ export function useCreateTodo() {
     mutationFn: createTodoService,
     onSuccess: (res) => {
       toast.success(res.message || "Todo created successfully");
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.refetchQueries({ queryKey: ["todos"] });
     },
     onError: (error) => {
       toast.error(error?.message);
@@ -51,7 +47,7 @@ export function useUpdateTodo() {
     mutationFn: updateTodoService,
     onSuccess: (res) => {
       toast.success(res.message || "Todo updated successfully");
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.refetchQueries({ queryKey: ["todos"] });
     },
     onError: (error) => {
       toast.error(error?.message);

@@ -1,21 +1,38 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { useCreateTodo } from "@/hooks/useTodo";
+import { Loader2 } from "lucide-react";
+import { TodoForm } from "@/app/types";
 
 const AddTodoForm = () => {
-  const [title, setTitle] = useState("");
+  const [formData, setFormData] = useState<TodoForm>({
+    title: "",
+  });
+  const { mutateAsync: createTodo, isPending: isCreateTodoPending } =
+    useCreateTodo();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await createTodo(formData);
+    setFormData({ title: "" });
+  };
   return (
-    <form className="flex items-center gap-2">
+    <form onSubmit={handleSubmit} className="flex items-center gap-2">
       <Input
         type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={formData.title}
+        onChange={(e) => setFormData({ title: e.target.value })}
         placeholder="Add a todo"
+        className="text-white"
       />
       <Button type="submit" className="cursor-pointer">
-        Add
+        {isCreateTodoPending ? (
+          <Loader2 className="size-5 animate-spin" />
+        ) : (
+          "Add"
+        )}
       </Button>
     </form>
   );
