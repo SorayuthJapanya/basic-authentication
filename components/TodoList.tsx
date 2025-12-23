@@ -13,7 +13,7 @@ import { useDeleteTodo } from "@/hooks/useTodo";
 import { useState } from "react";
 
 const TodoList = ({ todos }: { todos: Todo[] }) => {
-  const { mutate: deleteTodo, isPending: isDeletePending } = useDeleteTodo();
+  const { mutate: deleteTodo } = useDeleteTodo();
 
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
